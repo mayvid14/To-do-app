@@ -1,0 +1,25 @@
+<div ng-controller="loginctrl">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 l6 xl6">
+                <h2 class='center'>Log-In</h2>
+                    <form action="" name="loginform">
+                        <label for="em">Email:</label>
+                        <input type="email" name="emname" id="em" class="validate" ng-model="liemail" required> <span style="color:red" ng-show="loginform.emname.$touched && loginform.emname.$invalid">Email required<br></span> <span style="color:red" ng-show="loginform.emname.$dirty && loginform.emname.$invalid">Invalid Email id...<br></span>
+                        <label for="pw">Password:</label>
+                        <input type="password" name="pwname" id="pw" ng-model="lipasswd" ng-minlength='6' required> <span style="color:red" ng-show="loginform.pwname.$invalid && loginform.pwname.$dirty">Minimum length of password is 6...<br></span> <span style="color:red" ng-show="loginform.pwname.$invalid && loginform.pwname.$touched">Password required<br></span>
+                        <input type="submit" value="Log In" class="btn" ng-click="login()" ng-disabled="loginform.$invalid || liemail===''"> </form>
+            </div>
+            <div class="col s12 m6 l6 xl6">
+                <h2 class='center'>Sign-Up</h2>
+                <form action="" name="signupform">
+                    <label for="un">Username:</label>
+                    <input type="text" name="un" id="un" class="validate" ng-model="username" required ng-minlength='4' ng-change="checkavail()"> <span style="color:red" ng-show="signupform.un.$touched && signupform.un.$invalid">Username required<br></span> <span style="color:red" ng-show="signupform.un.$dirty && signupform.un.$invalid">Minimum length of username is 4...<br></span> <span style="color:red" ng-show="!isAvail">Username not available<br></span><span style="color:green" ng-show="isAvail">Username available<br></span>
+                    <label for="em">Email:</label>
+                    <input type="email" name="em" id="em" class="validate" ng-model="suemail" required ng-change="checkreg()"> <span style="color:red" ng-show="signupform.em.$touched && signupform.em.$invalid">Email required<br></span> <span style="color:red" ng-show="signupform.em.$dirty && signupform.em.$invalid">Invalid Email id...<br></span> <span style="color:red" ng-show="isReg">Email already registered...<br></span>
+                    <label for="pw">Password:</label>
+                    <input type="password" name="pw" id="pw" ng-model="supasswd" ng-minlength='6' required> <span style="color:red" ng-show="signupform.pw.$invalid && signupform.pw.$dirty">Minimum length of password is 6...<br></span> <span style="color:red" ng-show="signupform.pw.$invalid && signupform.pw.$touched">Password required<br></span>
+                    <input type="submit" value="Sign Up" class="btn" ng-click="signup()" ng-disabled="signupform.$invalid || suemail==='' || username==='' || !isAvail || isReg"> </form>
+            </div>
+        </div>
+    </div>

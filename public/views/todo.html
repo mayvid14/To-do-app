@@ -1,0 +1,121 @@
+<div class="container">
+    <div ng-controller="todoctrl"> <span class="right">Hello {{username}} <span class="btn btn-small" ng-click="logout()">Log-out</span></span>
+        <br>
+        <br>
+        <div class="row"> <span class="btn col s3" ng-click="op=1">Add Task</span> <!--<span class="btn col s3" ng-click="op=2">Delete Task</span> <span class="btn col s3" ng-click="op=3">Update Task</span>--> <span class="btn col s3" ng-click="op=4">Search Task</span> </div>
+        <hr>
+        <!--Add task-->
+        <div class="card col s8 offset-s2" ng-show="op===1">
+            <form action="" ng-submit="add()">
+                <div class="card-content"> <span class="card-title">
+                        <div class="input-field inline">
+                            <label for="title">Title :</label>
+                        <input type="text" ng-model="title">
+                        </div>
+                    </span>
+                    <div class="input-field">
+                        <label for="desc">Description :</label>
+                        <textarea name="desc" id="" cols="30" rows="10" class="materialize-textarea" ng-model="desc"></textarea>
+                    </div> <span>Priority of task: </span>
+                    <div ng-init="priority=2">
+                        <p>
+                            <input type="radio" name="priority" id="high" value="1" ng-model="priority">
+                            <label for="high">High</label>
+                        </p>
+                        <p>
+                            <input type="radio" name="priority" id="medium" value="2" ng-model="priority">
+                            <label for="medium">Medium</label>
+                        </p>
+                        <p>
+                            <input type="radio" name="priority" id="low" value="3" ng-model="priority">
+                            <label for="low">Low</label>
+                        </p>
+                    </div>
+                    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit <i class="material-icons right">send</i> </button>
+                </div>
+            </form>
+        </div>
+        <!--Delete Task-->
+        <div class="card col s8 offset-s2" ng-show="op===2"> Deletion here </div>
+        <!--Update Task-->
+        <div class="card col s4 offset-s1" ng-show="op===3">
+            <form action="" ng-submit="edit()">
+                <div class="card-content"> <span class="card-title">
+                       <label for="">Title :</label>
+                        <div class="input-field inline">  
+                            <input type="text" ng-model="utitle" ng-value="temptask.title">
+                        </div>
+                    </span>
+                    <label for="">Description :</label>
+                    <div class="input-field">
+                        <textarea name="" id="" cols="30" rows="10" class="materialize-textarea" ng-model="udesc" ng-value="temptask.description"></textarea>
+                    </div> <span>Previous priority of task: <span ng-show="temptask.priority===1">High</span><span ng-show="temptask.priority===2">Medium</span><span ng-show="temptask.priority===3">Low</span></span>
+                    <div ng-init="upriority=temptask.priority">
+                        <p>
+                            <input type="radio" name="upriority" id="highdo" value="1" ng-model="upriority">
+                            <label for="highdo">High</label>
+                        </p>
+                        <p>
+                            <input type="radio" name="upriority" id="mediumdo" value="2" ng-model="upriority">
+                            <label for="mediumdo">Medium</label>
+                        </p>
+                        <p>
+                            <input type="radio" name="upriority" id="lowdo" value="3" ng-model="upriority">
+                            <label for="lowdo">Low</label>
+                        </p>
+                    </div> <a class="btn waves-effect waves-light left" ng-click="op=-1">Cancel <i class="material-icons right">replay</i> </a>
+                    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit <i class="material-icons right">send</i> </button>
+                </div>
+            </form>
+        </div>
+        <!--Search Task-->
+        <div class="row">
+            <div class="card col s6" ng-show="op===4">
+                <form action="">
+                    <div class="input-field"> <i class="material-icons prefix">search</i>
+                        <input id="srch" type="text" ng-model="search.title">
+                        <label for="srch">Search by title</label>
+                    </div>
+                </form>
+            </div>
+            <div class="card col s6" ng-show="op===4">
+                <form action="">
+                    <div class="input-field"> <i class="material-icons prefix">search</i>
+                        <input id="srche" type="text" ng-model="search.description">
+                        <label for="srche">Search by description</label>
+                    </div>
+                </form>
+            </div>
+            <!--<div class="card col s4" ng-show="op===4">
+                <form action="">
+                    <div class="input-field">
+                        <select ng-model="sel">
+                            <option>title</option>
+                            <option>description</option>
+                            <option>priority</option>
+                        </select>
+                        <label for="">Order by:</label>
+                    </div>
+                </form>
+            </div>-->
+        </div>
+        <!--Tasks-->
+        <div class="row">
+            <h3 class="center">Tasks:</h3> <span class="btn right" ng-click="refresh()">Refresh <i class="material-icons">replay</i></span> </div>
+        <div class="card col s8 offset-s2" ng-repeat="task in tasks | filter:search | orderBy:sel:order">
+            <div class="card-content">
+                <div class="card-title"> {{task.title}} <span ng-show="task.isCompleted" style="color:green"><i class="material-icons" >done</i></span><a class="btn btn-small btn-flat right" ng-disabled="task.isCompleted" ng-click="complete($index)">Mark as completed <i class="material-icons">done</i></a></div><span class="right">Priority : <span ng-show="task.priority===1">High</span><span ng-show="task.priority===2">Medium</span><span ng-show="task.priority===3">Low</span></span>
+                <p>{{task.description}}</p> <span class="right" ng-show="!task.isCompleted">Last updated : {{task.lastUpdated | convDate}}</span><span class="right" ng-show="task.isCompleted">Completed : {{task.completedOn | convDate}}</span>
+                <a class="btn-floating" ng-click="delete(task._id)"> <i class="material-icons">delete</i> </a>
+                <a class="btn-floating" ng-click="initedit($index)" ng-show="!task.isCompleted"> <i class="material-icons">mode_edit</i> </a>
+            </div>
+        </div>
+        <!---->
+        <!---->
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>

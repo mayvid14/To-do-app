@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do App</title>
+    <!--CSS Files-->
+    <link rel="stylesheet" href="/nodemods/materialize-css/css/ghpages-materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!--JS Files-->
+    <script src="/nodemods/jquery/dist/jquery.js"></script>
+    <script src="/nodemods/materialize-css/dist/js/materialize.min.js"></script>
+    <script src="/nodemods/angular/angular.min.js"></script>
+    <script src="/nodemods/angular-route/angular-route.min.js"></script>
+    <script src="/nodemods/ng-storage/ngStorage.min.js"></script>
+    <script src="../configs/main.js"></script>
+    <script src="../configs/routes.js"></script>
+    <script src="../models/loginfac.js"></script>
+    <script src="../models/todofac.js"></script>
+    <script src="../controllers/loginctrl.js"></script>
+    <script src="../controllers/todoctrl.js"></script>
+</head>
+
+<body ng-app="todoapp">
+    <h1 class="center">To-do App</h1>
+    <ng-view></ng-view>
+</body>
+
+</html>
